@@ -55,9 +55,11 @@ Actual time needed to complete: ___3hours__
 
 Name of feature:
 
-Estimate of time needed to complete: __
+Estimate of time needed to complete: __3. Map: As a user, I want to see a map of the city so that I can see the layout of the area I want to explore.
 
-Start time: _____
+Estimate of time needed to complete: __1hr_
+
+Start time: _10:00____
 
 Finish time: _____
 

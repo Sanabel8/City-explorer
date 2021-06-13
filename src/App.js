@@ -3,6 +3,11 @@ import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Image from 'react-bootstrap/Image';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
 
 
 export class App extends React.Component {
@@ -34,7 +39,7 @@ export class App extends React.Component {
       cityData: axiosResponse.data[0],
       displayDta: true
     });
-   
+
   }
 
 
@@ -58,8 +63,26 @@ export class App extends React.Component {
               {this.state.cityData.display_name}
             </p>
 
-            <img src={`https://maps.locationiq.com/v3/staticmap?key=pk.cf35e1cf53a07585c594d6c5e38401db&q&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=15`} alt='' />
+            {/* <img src={`https://maps.locationiq.com/v3/staticmap?key=pk.cf35e1cf53a07585c594d6c5e38401db&q&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=15`} alt='' /> */}
+
+            <Container>
+              <Row>
+                
+                <Col xs={6} md={4}>
+                  <Image src={`https://maps.locationiq.com/v3/staticmap?key=pk.cf35e1cf53a07585c594d6c5e38401db&q&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=15`} alt='' roundedCircle />
+                </Col>
+              
+              
+              </Row>
+            </Container>
+
+
+
           </div>
+
+
+
+
         }
 
       </div>
