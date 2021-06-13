@@ -32,10 +32,38 @@ Estimate of time needed to complete: _1hr____
 
 Start time: __5:00___
 
-Finish time: _____
+Finish time: __7:00___
 
-Actual time needed to complete: _____
+Actual time needed to complete: __2HR___
 
+
+
+
+Name of feature: _2. Locations: As a user of City Explorer, I want to enter the name of a location so that I can see the exact latitude and longitude of that location.
+
+
+Estimate of time needed to complete: __2HR_
+
+Start time: _7:00____
+
+Finish time: _10:pm____
+
+Actual time needed to complete: ___3hours__
+
+
+
+
+Name of feature:
+
+Estimate of time needed to complete: __3. Map: As a user, I want to see a map of the city so that I can see the layout of the area I want to explore.
+
+Estimate of time needed to complete: __1hr_
+
+Start time: _10:00____
+
+Finish time: __10:30___
+
+Actual time needed to complete: __30min__
 
 
 ## Credit and Collaborations
