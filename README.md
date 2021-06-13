@@ -61,9 +61,9 @@ Estimate of time needed to complete: __1hr_
 
 Start time: _10:00____
 
-Finish time: _____
+Finish time: __10:30___
 
-Actual time needed to complete: ____
+Actual time needed to complete: __30min__
 
 
 ## Credit and Collaborations
