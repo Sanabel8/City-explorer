@@ -66,6 +66,16 @@ Finish time: __10:30___
 Actual time needed to complete: __30min__
 
 
+
+Name of feature: __3. Publish: Deploy your server. As a user, I want to access the City Explorer application on the web, so that anyone can explore from anywhere_
+
+Estimate of time needed to complete: __30min___
+
+Start time: __9:00___
+
+Finish time: _10:30____
+
+Actual time needed to complete: _1:30hr_
 ## Credit and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
 
