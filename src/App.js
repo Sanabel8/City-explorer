@@ -7,6 +7,7 @@ import Image from 'react-bootstrap/Image';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Alert from 'react-bootstrap/Alert';
 
 
 
@@ -17,13 +18,16 @@ export class App extends React.Component {
     this.state = {
       cityName: '',
       cityData: {},
-      displayDta: false
-
-
+      displayData: false,
+      alert: false,
+      error: '',
+      weatherData: []
     }
 
   };
 
+
+  
   updateCityNameState = (e) => {
     this.setState({
       cityName: e.target.value
@@ -33,20 +37,50 @@ export class App extends React.Component {
   getData = async (e) => {
     e.preventDefault();
 
-    const axiosResponse = await axios.get(`https://us1.locationiq.com/v1/search.php?key=pk.cf35e1cf53a07585c594d6c5e38401db&q=${this.state.cityName}&format=json`);
-    console.log(axiosResponse.data[0]);
-    this.setState({
-      cityData: axiosResponse.data[0],
-      displayDta: true
-    });
+    const apiKey =process.env.REACT_APP_API_KEY ;
+    const ourServerUrl =process.env.REACT_APP_URL;
+ 
+     
+    try {
+      const axiosResponse = await axios.get(`https://us1.locationiq.com/v1/search.php?key=${apiKey}&q=${this.state.cityName}&format=json`);
+      console.log(axiosResponse.data[0]);
+
+      const weatherDataRes = await axios.get(`${ourServerUrl}/weather`);
+      console.log(weatherDataRes.data.data);
+
+      this.setState({
+        cityData: axiosResponse.data[0],
+        displayData: true,
+        alert: false,
+        weatherData: weatherDataRes.data.data
+      })
+
+    } catch (error) {
+      this.setState({
+        error: error.message,
+        alert: true,
+        // displayDta: false,
+
+      })
+    }
 
   }
 
 
   //https://us1.locationiq.com/v1/search.php?key=pk.cf35e1cf53a07585c594d6c5e38401db&q=amman&format=json
+
+  // http://localhost:8080/weather
   render() {
+    console.log(process.env.REACT_APP_URL);
+    console.log(process.env.REACT_APP_API_KEY);
+
     return (
       <div>
+        {this.state.alert &&
+          <Alert variant="danger">
+            This is a {this.state.error} alert—check it out!
+          </Alert>
+        }
         <Form onSubmit={this.getData}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>City Name</Form.Label>
@@ -56,26 +90,40 @@ export class App extends React.Component {
             explore!
           </Button>
         </Form>
-        {this.state.displayDta &&
+
+        {this.state.displayData &&
+
 
           <div>
             <p>
               {this.state.cityData.display_name}
             </p>
+            <p>`The lat : {this.state.cityData.lat}`</p>
+            <p>`The lon : {this.state.cityData.lon}`</p>
 
-            {/* <img src={`https://maps.locationiq.com/v3/staticmap?key=pk.cf35e1cf53a07585c594d6c5e38401db&q&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=15`} alt='' /> */}
 
             <Container>
               <Row>
-                
+
                 <Col xs={6} md={4}>
                   <Image src={`https://maps.locationiq.com/v3/staticmap?key=pk.cf35e1cf53a07585c594d6c5e38401db&q&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=15`} alt='' roundedCircle />
+
+
+
                 </Col>
-              
-              
+
+
+
               </Row>
             </Container>
-
+            <div>
+              {
+                this.state.displayData &&
+                this.state.weatherData.map((value,idx) =>{
+                  return (<p key={idx}>{value.weather.description}</p>)
+                })
+                 }
+            </div>
 
 
           </div>
@@ -90,3 +138,6 @@ export class App extends React.Component {
   }
 }
 export default App;
+
+
+
