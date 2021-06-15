@@ -21,7 +21,9 @@ export class App extends React.Component {
       displayData: false,
       alert: false,
       error: '',
-      weatherData: []
+      weatherData: [],
+      lat:'',
+      lon: ''
     }
 
   };
@@ -35,35 +37,33 @@ export class App extends React.Component {
   }
 
   getData = async (e) => {
+  
     e.preventDefault();
-
+    
     const apiKey = process.env.REACT_APP_API_KEY;
     const ourServerUrl = process.env.REACT_APP_URL;
-
-
     try {
-      const axiosResponse = await axios.get(`https://us1.locationiq.com/v1/search.php?key=${apiKey}&q=${this.state.cityName}&format=json`);
-      console.log(axiosResponse.data[0]);
-
-      const weatherDataRes = await axios.get(`${ourServerUrl}/weather`);
-      console.log(weatherDataRes.data);
-
-      this.setState({
-        cityData: axiosResponse.data[0],
+      const res = await axios.get(`https://us1.locationiq.com/v1/search.php?key=${apiKey} &q=${this.state.cityName}&format=json`);
+       this.setState({
+        cityData: res.data[0],
         displayData: true,
         alert: false,
-        weatherData: weatherDataRes.data
+        lat:res.data[0].lat,
+        lon:res.data[0].lon
       })
-
-    } catch (error) {
+      const weatherDataRes = await axios.get(`${ourServerUrl}/weather?lat=${this.state.lat}&lon=${this.state.lon}`);
+      this.setState({
+        weatherData: weatherDataRes.data,
+      })
+    }
+    catch (error) {
+      // alert(error.message);
       this.setState({
         error: error.message,
         alert: true,
-        // displayDta: false,
-
+        displayData: false
       })
     }
-
   }
 
 
@@ -71,8 +71,6 @@ export class App extends React.Component {
 
   // http://localhost:8080/weather
   render() {
-    console.log(process.env.REACT_APP_URL);
-    console.log(process.env.REACT_APP_API_KEY);
 
     return (
       <div>
@@ -94,7 +92,7 @@ export class App extends React.Component {
         {this.state.displayData &&
 
 
-          <div>
+          <div>    
             <p>
               {this.state.cityData.display_name}
             </p>
