@@ -26,6 +26,8 @@ export class App extends React.Component {
 
   };
 
+
+  
   updateCityNameState = (e) => {
     this.setState({
       cityName: e.target.value
@@ -35,17 +37,20 @@ export class App extends React.Component {
   getData = async (e) => {
     e.preventDefault();
 
-
+    const apiKey =process.env.REACT_APP_API_KEY ;
+    const ourServerUrl =process.env.REACT_APP_URL;
+ 
+     
     try {
-      const axiosResponse = await axios.get(`https://us1.locationiq.com/v1/search.php?key=pk.cf35e1cf53a07585c594d6c5e38401db&q=${this.state.cityName}&format=json`);
+      const axiosResponse = await axios.get(`https://us1.locationiq.com/v1/search.php?key=${apiKey}&q=${this.state.cityName}&format=json`);
       console.log(axiosResponse.data[0]);
 
-      const weatherDataRes = await axios.get(`http://localhost:8080/weather`);
+      const weatherDataRes = await axios.get(`${ourServerUrl}/weather`);
       console.log(weatherDataRes.data.data);
 
       this.setState({
         cityData: axiosResponse.data[0],
-        displayDta: true,
+        displayData: true,
         alert: false,
         weatherData: weatherDataRes.data.data
       })
@@ -66,6 +71,9 @@ export class App extends React.Component {
 
   // http://localhost:8080/weather
   render() {
+    console.log(process.env.REACT_APP_URL);
+    console.log(process.env.REACT_APP_API_KEY);
+
     return (
       <div>
         {this.state.alert &&
@@ -105,13 +113,14 @@ export class App extends React.Component {
                 </Col>
 
 
+
               </Row>
             </Container>
             <div>
               {
                 this.state.displayData &&
-                this.state.weatherData.map(value =>{
-                  return (<p>{value.weather.description}</p>)
+                this.state.weatherData.map((value,idx) =>{
+                  return (<p key={idx}>{value.weather.description}</p>)
                 })
                  }
             </div>
