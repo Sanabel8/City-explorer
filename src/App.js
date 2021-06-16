@@ -8,8 +8,8 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Alert from 'react-bootstrap/Alert';
-
-
+import Card from 'react-bootstrap/Card';
+import ListGroup from 'react-bootstrap/ListGroup';
 
 export class App extends React.Component {
 
@@ -22,7 +22,8 @@ export class App extends React.Component {
       alert: false,
       error: '',
       weatherData: [],
-      lat:'',
+      movieData: [],
+      lat: '',
       lon: ''
     }
 
@@ -37,25 +38,32 @@ export class App extends React.Component {
   }
 
   getData = async (e) => {
-  
+
     e.preventDefault();
-    
+
     const apiKey = process.env.REACT_APP_API_KEY;
     const ourServerUrl = process.env.REACT_APP_URL;
     try {
       const res = await axios.get(`https://us1.locationiq.com/v1/search.php?key=${apiKey} &q=${this.state.cityName}&format=json`);
-       this.setState({
+      this.setState({
         cityData: res.data[0],
         displayData: true,
         alert: false,
-        lat:res.data[0].lat,
-        lon:res.data[0].lon
+        lat: res.data[0].lat,
+        lon: res.data[0].lon
       })
       const weatherDataRes = await axios.get(`${ourServerUrl}/weather?lat=${this.state.lat}&lon=${this.state.lon}`);
       this.setState({
         weatherData: weatherDataRes.data,
+
+      })
+      const movieDataRes = await axios.get(`${ourServerUrl}/movie?region=${this.state.cityName}`);
+      this.setState({
+        movieData: movieDataRes.data,
+
       })
     }
+
     catch (error) {
       // alert(error.message);
       this.setState({
@@ -92,7 +100,7 @@ export class App extends React.Component {
         {this.state.displayData &&
 
 
-          <div>    
+          <div>
             <p>
               {this.state.cityData.display_name}
             </p>
@@ -123,6 +131,34 @@ export class App extends React.Component {
                       <p >{value.description}</p>
                       <p >{value.data}</p>
                     </div>
+                  )
+                })
+              }
+            </div>
+
+
+            <div>
+              {
+                this.state.displayData &&
+                this.state.movieData.map((value, idx) => {
+                  return (
+                    
+                    <Card style={{ width: '18rem' }}>
+                      <Card.Img variant="top" src={value.image_url} />
+                      <Card.Body>
+                        <Card.Title>{value.title}</Card.Title>
+                        <Card.Text> {value.overview} </Card.Text>
+                      </Card.Body>
+                      <ListGroup className="list-group-flush">
+                        
+                        <Card.Text>{value.popularity}</Card.Text>
+                        <Card.Text>{value.released_on}</Card.Text>
+                        <Card.Text>{value.total_votes}</Card.Text>
+                        <Card.Text>{value.average_votes}</Card.Text>
+
+                      </ListGroup>
+                     
+                    </Card>
                   )
                 })
               }
