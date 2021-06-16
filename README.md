@@ -26,6 +26,9 @@ The user can used the url for this website
 <!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an example:
 
 01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
+
+***lab 7***
+
 Name of feature:  1. Set up your React repository & API keys.
 
 Estimate of time needed to complete: _1hr____
@@ -67,6 +70,32 @@ Actual time needed to complete: __30min__
 
 
 
+****lab 8***
+
+Name of feature: ____1. Weather (live): As a user of City Explorer, I want to see weather info for the city I searched, so that I know how to pack for an upcoming trip.
+
+Estimate of time needed to complete: _3hr____
+
+Start time: _5:00____
+
+Finish time: __8:00___
+
+Actual time needed to complete: __3hr___
+
+
+
+
+Name of feature: ___2. Movies: As a user of City Explorer, I want to see info about movies related to the city I searched, so that I can learn more about the destination._____________________________
+
+Estimate of time needed to complete: __1hr___
+
+Start time: __8:00___
+
+Finish time: _9:00____
+
+Actual time needed to complete: _1hr____
+
+
 Name of feature: __3. Publish: Deploy your server. As a user, I want to access the City Explorer application on the web, so that anyone can explore from anywhere_
 
 Estimate of time needed to complete: __30min___
@@ -76,6 +105,8 @@ Start time: __9:00___
 Finish time: _10:30____
 
 Actual time needed to complete: _1:30hr_
+
+
 ## Credit and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
 
